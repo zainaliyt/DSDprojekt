@@ -1,0 +1,248 @@
+body{
+    background-color:white;
+    margin:0;
+    height: 100%;
+    width: 100%;
+    
+}
+.storimg{
+    width:90%;
+      background-image: url("https://images.pexels.com/photos/4414/black-and-white-clean-housework-launderette.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+      background-size:cover;
+      background-position:center;
+    height:500px;
+    padding-bottom:10px;
+    background-color:black;
+}
+
+.h2main{
+padding-top:20px;
+font-weight: bold;
+
+text-shadow: 1px 1px 2px white;
+text-transform: uppercase;
+} 
+
+.regler{
+    font-size: 20px;
+    background-color: #cfcccc;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px white;
+}
+.header{
+    background-color:#D8D8F6;
+}
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1.8fr 1fr;
+  grid-template-areas: "Topbar Topbar Topbar Topbar" "menubar ItemBox ItemBox ItemBox" "menubar ItemBox ItemBox ItemBox";
+}
+
+.Topbar { grid-area: Topbar; 
+    background-color:#5386E4;
+    
+}
+.Topbar h2{ 
+    font-size:30px;
+    float:center;
+    
+    
+    
+}
+
+.menubar {
+  display: grid;
+  grid-template-columns: 3fr;
+  grid-template-rows: 0.3fr 0.3fr 0.3fr 3.1fr;
+  grid-template-areas: "Bokab" "Visab" "lutb" ".";
+  grid-area: menubar;
+  background-color:#4C4B63;
+  max-height: 672px;
+  
+}
+
+.Bokab { grid-area: Bokab; }
+
+.Visab { grid-area: Visab; }
+
+.lutb { grid-area: lutb; }
+
+.ItemBox { grid-area: ItemBox; 
+    background-color:#acabbd;
+    height:93.3vh;
+    
+}
+
+
+.menubar li  {
+    
+    list-style-type:none;
+    margin-left:0px;
+    text-decoration: none;
+    
+}
+#maintitle {
+   font-weight: bold;
+   font-size:20px;
+    
+}
+
+    .menubar li a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    list-style-type:none;
+    padding: 50px;
+    margin-left: 60px;
+}
+.menubar  li:hover {
+    background:grey;
+    transition: all ease-in-out 0.45s;
+}
+
+    .mail {
+        width: 130px;
+        padding:0;
+        height: 195px;
+        background: url("images/closem.png") no-repeat;
+        display: inline-block;
+    }
+    .mail:hover {
+        background: url("images/openm.png") no-repeat;
+    }
+    
+    
+
+#modal-area{
+    position:fixed;
+    height:100%;
+    width:100%;
+    background:rgba(0,0,0,0.8);
+    left:0;
+    top:0;
+    display:flex;
+    align-items:center;
+    z-index:100;
+    justify-content:center;
+
+}
+
+#modal-content{
+    position:absolute;
+    width:600px;
+    height:300px;
+    background:white;
+    padding:30px;
+    border-radius:4px;
+    
+}
+    
+.bbtns{
+    border:1px yellow;
+}
+
+.bbtns:hover{
+    background-color:gray;
+}
+
+
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+.form-class{
+-webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+    
+    
+.linet{
+    text-decoration: line-through;
+}
+    
+    
+    
+    
+    
+    
+    
+    
