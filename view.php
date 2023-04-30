@@ -65,7 +65,7 @@ if(isset($_GET['avboka'])){
     <center><h2>Dina bokningar!</h2></center> 
     <?php 
                    
-                   $query2 = "SELECT * FROM Time where kundpass1='$user' OR kundpass2='$user' OR kundpass3='$user'";
+                   $query2 = "SELECT * FROM hours where bookername = "$user"";
 $result = mysqli_query($conn,$query2);
 if (!$result) exit("The query did not succeded");
 else {
@@ -79,24 +79,13 @@ else {
           </script>
         <?php 
         
-         $pat1 = $row['pass1'];
-         $pat2 = $row['pass2'];
-         $pat3 = $row['pass3'];
-                 $dagen= $row['dag'];
+         $pat1 = $row['itemid'];
             echo  "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
-         if($row['kundpass1']=="$user"){
-             echo  "<br><th>Pass 1 > kl. 8-11 på $dagen <td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=$dagen'>Avboka</a></td></th>";
-         }
-         if($row['kundpass2']=="$user"){
-            echo  "<br><th>Pass 2 > kl. 11-14 på $dagen <td><a onclick='ask();' href='view.php?avboka&pass=pass2&dag=$dagen'>Avboka</a></td></th>";
-         }
-         if($row['kundpass3']=="$user"){
-              echo "<br><th>Pass 3 > kl. 14-17 på $dagen <td><a onclick='ask();' href='view.php?avboka&pass=pass3&dag=$dagen'>Avboka</a></td></th>";
-         }
+         echo "<br><th>Pass 3 > $pat1<td><a onclick='ask();' href='view.php?avboka&pass=pass3&dag=$dagen'>Avboka</a></td></th>";
          
         echo "</table></div></div></div>";
           
-        if($row['kundpass1']=='' && $row['kundpass2']=='' && $row['kundpass3']==''){
+        if($row['itemid']==''){
         echo "inga tider";
     }
         
