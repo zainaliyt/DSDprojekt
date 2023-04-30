@@ -42,7 +42,7 @@ if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
   </head>
   <body onload="startTime()">
      
-    <center><h2>Dina bokningar!</h2></center> 
+<center><h2>Dina bokningar!</h2></center> 
 <?php
     $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
     if ($result->num_rows > 0) {
@@ -53,7 +53,7 @@ if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
-            echo "<tr><td>".$date."</td><td>".$time."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
+            echo "<tr><td>".$date."</td><td>".$time."</td><td><button onclick='showModal();'>Avboka</button></td></tr>";
         }
         echo "</tbody></table></div></div></div>";
     } else {
@@ -63,42 +63,28 @@ if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
     }
 ?>
 
+<div id='modal-area' style='display:none;'>
+    <div class='modal-content text-center' style='width:600px;'>
+        <form action='' method='POST' autocomplete='off' class='form-class'>
+            <h3>Avboka tid</h3>
+            <p>Är du säker på att du vill avboka den här tiden?</p>
+            <button type='submit' class='btn btn-danger'>Ja</button>
+            <button type='button' class='btn btn-secondary' onclick='hideModal();'>Nej</button>
+        </form>
+    </div>
+</div>
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
   
 <script type="text/javascript">
-function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById('timeNow').innerHTML =
-  h + ":" + m + ":" + s;
-  var t = setTimeout(startTime, 500);
-}
-
-function quote(){
-    var quote= document.getElementById('modal-area').style.display="block";
-}
-function closebtn(){
-    var quote= document.getElementById('modal-area').style.display="none";
-     if(typeof window.history.pushState == 'function') {
-        window.history.pushState({}, "Hide", '<?php echo $_SERVER['PHP_SELF'];?>');
+ function showModal() {
+        document.getElementById('modal-area').style.display = 'block';
     }
-    window.location.href='test2.php?d';
-}
-
-function ask(){
-    return confirm("Vill du verkligen avboka passet?");
-}
-
-function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-  return i;
-}
+    
+    function hideModal() {
+        document.getElementById('modal-area').style.display = 'none';
+    }
 </script>
 </body>
 
