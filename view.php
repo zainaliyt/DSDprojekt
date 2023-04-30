@@ -8,7 +8,7 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 
-if (isset($_POST['confirm'])) {
+if (isset($_POST['submit'])) {
   $passid= $_COOKIE['passid'];
     // user confirmed the cancellation, delete the record from the database
     $delete_query = "DELETE FROM hours WHERE itemid='$passid'";
