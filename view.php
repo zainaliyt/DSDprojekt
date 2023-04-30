@@ -106,7 +106,7 @@ if (isset($_POST['submit'])) {
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
-            echo "<tr><td>".$date."</td><td>".$time."</td><td><a href='#myModal' data-toggle='modal'>Avboka</a></td></tr>";
+            echo "<tr><td>".$date."</td><td>".$time."</td><td><a href='?passid=.$date_time."' data-toggle='modal'>Avboka</a></td></tr>";
         }
         echo "</tbody></table></div></div></div>";
     } else {
