@@ -7,54 +7,7 @@ if(!isset($_SESSION['user'])){
     echo "";
 $user =$_SESSION['user'];
 }
-
-if (isset($_POST['submit'])) {
-  $passid= $_COOKIE['passid'];
-    // user confirmed the cancellation, delete the record from the database
-    $delete_query = "DELETE FROM hours WHERE itemid='$passid'";
-    $delete_result = mysqli_query($conn, $delete_query);
-
-    if (!$delete_result) {
-        // deletion failed
-        $msg = "Avbokningen misslyckades!";
-        $_SESSION['misslyckad'] = $msg;
-        header("Location: ?msg=".urlencode($msg));
-        exit();
-    }
-
-    // update the remaining count of bookings for the user
-    $username = $_SESSION['username'];
-    $newKvar = $_SESSION["kvar"] + 1;
-    $reg = "UPDATE accounts SET kvar='$newKvar' WHERE username='$username'";
-    $res1 = mysqli_query($conn, $reg);
-
-    $msg = "Avbokningen lyckades!";
-    $_SESSION['lyckad'] = $msg;
-    header("Location: ?msg=".urlencode($msg));
-    exit();
-}
-
-?>
-<!DOCTYPE html>
-<html lang="sv">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" href="po.png" type="image/x-icon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Boka Tid!</title>
-   <link rel="stylesheet" href="styles.css" type="text/css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>  
-  </head>
-  <body onload="startTime()">
-     
-<center><h2>Dina bokningar!</h2></center> 
-<?php
-    if (isset($_GET['passid'])) {
+if (isset($_GET['passid'])) {
         $passid = $_GET['passid'];
         echo "<div class='modal' id='myModal'>
                 <div class='modal-dialog'>
@@ -97,6 +50,27 @@ if (isset($_POST['submit'])) {
         }
     }
     
+
+?>
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="po.png" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Boka Tid!</title>
+   <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>  
+  </head>
+  <body onload="startTime()">
+     
+<center><h2>Dina bokningar!</h2></center> 
+<?php
     $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
     if ($result->num_rows > 0) {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
