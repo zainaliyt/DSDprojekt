@@ -63,18 +63,20 @@ if(isset($_GET['avboka'])){
   <body onload="startTime()">
      
     <center><h2>Dina bokningar!</h2></center> 
-     <?php
-                    $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
-		    echo  "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo  "<br><th>$row['itemid']<td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=$dagen'>Avboka</a></td></th>";
-                        }
-                    } else {
-                        echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
-                    }
-	  echo "</table></div></div></div>";
-                    ?>
+<?php
+    $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
+    if ($result->num_rows > 0) {
+        echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr><td>".$row['itemid']."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
+        }
+        echo "</table></div></div></div>";
+    } else {
+        echo "<div class='container'><div class='card mt-5'><div class='card-body'>";
+        echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
+        echo "</div></div></div>";
+    }
+?>
 
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
