@@ -8,21 +8,28 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 if (isset($_GET['passid'])) {
-        $passid = $_GET['passid'];
-        echo "<div class='modal' id='myModal'>
-                <div class='modal-dialog'>
-                  <div class='modal-content'>
-                    <div class='modal-header'>
-                      <h4 class='modal-title'>Är du säker på att du vill avboka?</h4>
-                      <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                    </div>
-                    <div class='modal-footer'>
-                      <a href='?delete=".$passid."' class='btn btn-danger'>Ja</a>
-                      <button type='button' class='btn btn-secondary' data-dismiss='modal'>Nej</button>
-                    </div>
-                  </div>
-                </div>
-              </div>";
+       $passid = $_GET['delete'];
+        $username = $_SESSION['username'];
+        
+        // Delete the record from the database
+        $delete_query = "DELETE FROM hours WHERE itemid = '$passid'";
+        $delete_result = mysqli_query($conn, $delete_query);
+        
+        if (!$delete_result) {
+            $msg = "Kunde inte avboka tiden!";
+            $_SESSION['misslyckad'] = $msg;
+            header("Location: ?msg=".urlencode($msg));
+            exit();
+        } else {
+            // Update the remaining count of bookings
+            $newKvar = $_SESSION["kvar"] + 1;
+            $reg = "UPDATE accounts SET kvar='$newKvar' WHERE username='$username'";
+            $res1 = mysqli_query($conn, $reg);
+            $msg = "Tiden har avbokats.";
+            $_SESSION['lyckad'] = $msg;
+            header("Location: ?msg=".urlencode($msg));
+            exit();
+        }
     }
 
     if (isset($_GET['delete'])) {
