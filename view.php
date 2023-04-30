@@ -67,17 +67,18 @@ if(isset($_GET['avboka'])){
     $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
     if ($result->num_rows > 0) {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
-        echo "<thead><tr><th>Datum</th><th>Tid</th><th>Val</th></tr></thead>";
-       while ($row = $result->fetch_assoc()) {
+        echo "<thead><tr><th>Datum</th><th>Tid</th><th>Åtgärd</th></tr></thead>";
+        echo "<tbody>";
+        while ($row = $result->fetch_assoc()) {
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
             echo "<tr><td>".$date."</td><td>".$time."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
-       }
-	    echo "</table></div></div></div>";
+        }
+        echo "</tbody></table></div></div></div>";
     } else {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'>";
-        echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
+        echo "<p>Du har inga bokade tider.</p>";
         echo "</div></div></div>";
     }
 ?>
