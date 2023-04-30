@@ -9,7 +9,7 @@ $user =$_SESSION['user'];
 }
 
 if (isset($_POST['confirm'])) {
-  $passid= $_COOKIE['confirm'];
+  $passid= $_COOKIE['passid'];
     // user confirmed the cancellation, delete the record from the database
     $delete_query = "DELETE FROM hours WHERE itemid='$passid'";
     $delete_result = mysqli_query($conn, $delete_query);
@@ -88,6 +88,9 @@ if (isset($_POST['confirm'])) {
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
   
 <script type="text/javascript">
+	function setCookie(name, value) {
+  document.cookie = name + "=" + value + ";path=/";
+}
  function showModal() {
         document.getElementById('modal-area').style.display = 'block';
     }
