@@ -69,7 +69,7 @@ if(isset($_GET['avboka'])){
     <div class="col-md-6">
       <h2>Dina Bokningar!</h2>
       <ul class="list-group">
-	      <php? 
+	      <?php 
 		    $result0 = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
         if($result0->num_rows == 0) {
             echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>$result0</a>";
