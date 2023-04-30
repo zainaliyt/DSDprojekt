@@ -54,6 +54,49 @@ if (isset($_POST['submit'])) {
      
 <center><h2>Dina bokningar!</h2></center> 
 <?php
+    if (isset($_GET['passid'])) {
+        $passid = $_GET['passid'];
+        echo "<div class='modal' id='myModal'>
+                <div class='modal-dialog'>
+                  <div class='modal-content'>
+                    <div class='modal-header'>
+                      <h4 class='modal-title'>Är du säker på att du vill avboka?</h4>
+                      <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                    </div>
+                    <div class='modal-footer'>
+                      <a href='?delete=".$passid."' class='btn btn-danger'>Ja</a>
+                      <button type='button' class='btn btn-secondary' data-dismiss='modal'>Nej</button>
+                    </div>
+                  </div>
+                </div>
+              </div>";
+    }
+
+    if (isset($_GET['delete'])) {
+        $passid = $_GET['delete'];
+        $username = $_SESSION['username'];
+        
+        // Delete the record from the database
+        $delete_query = "DELETE FROM hours WHERE itemid = '$passid'";
+        $delete_result = mysqli_query($conn, $delete_query);
+        
+        if (!$delete_result) {
+            $msg = "Kunde inte avboka tiden!";
+            $_SESSION['misslyckad'] = $msg;
+            header("Location: ?msg=".urlencode($msg));
+            exit();
+        } else {
+            // Update the remaining count of bookings
+            $newKvar = $_SESSION["kvar"] + 1;
+            $reg = "UPDATE accounts SET kvar='$newKvar' WHERE username='$username'";
+            $res1 = mysqli_query($conn, $reg);
+            $msg = "Tiden har avbokats.";
+            $_SESSION['lyckad'] = $msg;
+            header("Location: ?msg=".urlencode($msg));
+            exit();
+        }
+    }
+    
     $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
     if ($result->num_rows > 0) {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
@@ -63,7 +106,7 @@ if (isset($_POST['submit'])) {
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
-            echo "<tr><td>".$date."</td><td>".$time."</td><td><a href='?passid=".$date."'>Avboka</a></td></tr>";
+            echo "<tr><td>".$date."</td><td>".$time."</td><td><a href='#myModal' data-toggle='modal'>Avboka</a></td></tr>";
         }
         echo "</tbody></table></div></div></div>";
     } else {
@@ -73,16 +116,6 @@ if (isset($_POST['submit'])) {
     }
 ?>
 
-<div id='modal-area' style='display:none;'>
-    <div class='modal-content text-center' style='width:600px;'>
-        <form action='' method='POST' autocomplete='off' class='form-class'>
-            <h3>Avboka tid</h3>
-            <p>Är du säker på att du vill avboka den här tiden?</p>
-            <button type='submit' class='btn btn-danger'>Ja</button>
-            <button type='button' class='btn btn-secondary' onclick='hideModal();'>Nej</button>
-        </form>
-    </div>
-</div>
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
