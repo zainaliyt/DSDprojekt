@@ -7,6 +7,19 @@ if(!isset($_SESSION['user'])){
     echo "";
 $user =$_SESSION['user'];
 }
+
+$query3 = "SELECT * FROM accounts where username = '$user'";
+$result2 = mysqli_query($conn,$query3);
+if (!$result2) exit("The query did not succeded");
+else {
+    while ($row2 = mysqli_fetch_array($result2)) {
+    $kvarande = $row2['kvar'];
+	    $_SESSION["kvar"] = $kvarande;
+	    $_SESSION["username"] = $row2['username'];
+    }
+
+}
+
 if (isset($_GET['passid'])) {
        $passid = $_GET['passid'];
         $username = $_SESSION['username'];
