@@ -32,31 +32,6 @@ if (isset($_GET['passid'])) {
         }
     }
 
-    if (isset($_GET['delete'])) {
-        $passid = $_GET['delete'];
-        $username = $_SESSION['username'];
-        
-        // Delete the record from the database
-        $delete_query = "DELETE FROM hours WHERE itemid = '$passid'";
-        $delete_result = mysqli_query($conn, $delete_query);
-        
-        if (!$delete_result) {
-            $msg = "Kunde inte avboka tiden!";
-            $_SESSION['misslyckad'] = $msg;
-            header("Location: ?msg=".urlencode($msg));
-            exit();
-        } else {
-            // Update the remaining count of bookings
-            $newKvar = $_SESSION["kvar"] + 1;
-            $reg = "UPDATE accounts SET kvar='$newKvar' WHERE username='$username'";
-            $res1 = mysqli_query($conn, $reg);
-            $msg = "Tiden har avbokats.";
-            $_SESSION['lyckad'] = $msg;
-            header("Location: ?msg=".urlencode($msg));
-            exit();
-        }
-    }
-    
 
 ?>
 <!DOCTYPE html>
@@ -98,7 +73,7 @@ if (isset($_GET['passid'])) {
 ?>
 
 	  
- <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
+ <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='index.php'">BOKA</button>
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
   
 <script type="text/javascript">
@@ -114,29 +89,5 @@ if (isset($_GET['passid'])) {
     }
 </script>
 </body>
-<style>
-    #modal-area {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-</style>
+
 </html>
