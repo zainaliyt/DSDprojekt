@@ -17,14 +17,23 @@ if(isset($_SESSION['lyckad'])&&$_SESSION['lyckad']!=""){
 
 unset($_SESSION['lyckad']);
 unset($_SESSION['misslyckad']);
-if(isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""&&isset($_SESSION['username'])&&$_SESSION['username']!=""){
-	$kvarande =$_SESSION["kvar"];
+$query3 = "SELECT * FROM accounts where username = '$user'";
+$result2 = mysqli_query($conn,$query3);
+if (!$result2) exit("The query did not succeded");
+else {
+    while ($row2 = mysqli_fetch_array($result2)) {
+    $kvarande = $row2['kvar'];
+	    $_SESSION["kvar"] = $kvarande;
+	    $_SESSION["username"] = $row2['username'];
 	    if($kvarande>=1){
 		    $stylebtn = "bg-info";
 		    }else{
 		    $msg = "Du har nått max antal bokningar denna månad!!";
 		    $stylebtn = "bg-danger";
 	    }
+	    
+    }
+
 }
 
 if (isset($_POST['submit'])) {
