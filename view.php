@@ -68,15 +68,13 @@ if(isset($_GET['avboka'])){
     if ($result->num_rows > 0) {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
        while ($row = $result->fetch_assoc()) {
-    while ($row = $result->fetch_assoc()) {
     $date_time = $row["itemid"];
     $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
     $time = date("H:i", strtotime(substr($date_time, 9)));
-    echo "<tr><td>".$date."</td><td>".$time."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag='>Avboka</a></td></tr>";
-}
-
-        echo "</table></div></div></div>";
-    } else {
+    echo "<tr><td>".$date."</td><td>".$time."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
+       }
+	    echo "</table></div></div></div>";
+} else {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'>";
         echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
         echo "</div></div></div>";
