@@ -8,6 +8,23 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 
+if(isset($_GET['passid']))
+	
+{
+	$passid = $_GET['passid'];
+			echo "<div id='modal-area'>
+    <div class='modal-content text-center' style='width:600px;'>
+        <form action='' method='POST' autocomplete='off' class='form-class'>
+            <h3>Avboka tid</h3>
+            <p>Är du säker på att du vill avboka den här tiden?</p>
+            <button type='submit' class='btn btn-danger'>Ja</button>
+            <button type='button' class='btn btn-secondary' onclick='hideModal();'>Nej</button>
+        </form>
+    </div>
+</div>";
+		
+}	
+
 if (isset($_POST['submit'])) {
   $passid= $_COOKIE['passid'];
     // user confirmed the cancellation, delete the record from the database
@@ -72,17 +89,6 @@ if (isset($_POST['submit'])) {
         echo "</div></div></div>";
     }
 ?>
-
-<div id='modal-area' style='display:none;'>
-    <div class='modal-content text-center' style='width:600px;'>
-        <form action='' method='POST' autocomplete='off' class='form-class'>
-            <h3>Avboka tid</h3>
-            <p>Är du säker på att du vill avboka den här tiden?</p>
-            <button type='submit' class='btn btn-danger'>Ja</button>
-            <button type='button' class='btn btn-secondary' onclick='hideModal();'>Nej</button>
-        </form>
-    </div>
-</div>
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
