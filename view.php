@@ -62,28 +62,28 @@ if(isset($_GET['avboka'])){
   </head>
   <body onload="startTime()">
      
-    <center><h2>Dina bokningar!</h2></center> 
-	<div class="container">
+    <center>
+	    
+	    <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h2>Available Time Slots</h2>
+      <h2>Dina Bokningar!</h2>
       <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          10:00 AM - 11:00 AM
-          <button class="btn btn-primary">Book Now</button>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          12:00 PM - 1:00 PM
-          <button class="btn btn-primary">Book Now</button>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          2:00 PM - 3:00 PM
-          <button class="btn btn-primary">Book Now</button>
-        </li>
+	      <php? 
+		    $result0 = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
+        if($result0->num_rows == 0) {
+            echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>$result0</a>";
+        } else {
+            echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>$yi</a>"; 
+        }
+													   
+		    ?>
+        
       </ul>
     </div>
   </div>
 </div>
+	  </center> 
 
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
