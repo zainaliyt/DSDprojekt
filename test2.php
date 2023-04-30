@@ -8,19 +8,16 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 
-if(isset($_GET['avboka'])){
-    $pass = $_GET['pass'];
-    $dag = $_GET['dag'];
-     $sql = "UPDATE Time SET $pass='', kund$pass='' WHERE kund$pass='$user' AND dag='$dag' ";
-     $query5= $conn->prepare("UPDATE accounts SET kvar=kvar+1 WHERE username = '$user'");
-     $query5->execute();
-    $result = mysqli_query($conn,$sql);
-    if(!$result){
-        echo 'gick inte att avboka passet!';
-    }else{
-          header('location: view.php?avbokat');
+$query3 = "SELECT * FROM accounts where username = '$user'";
+$result2 = mysqli_query($conn,$query3);
+if (!$result2) exit("The query did not succeded");
+else {
+    while ($row2 = mysqli_fetch_array($result2)) {
+    $kvarande = $row2['kvar'];
+	    $_SESSION["kvar"] = $kvarande;
+	    $_SESSION["username"] = $row2['username'];
     }
-    
+
 }
  
 
