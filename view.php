@@ -73,6 +73,7 @@ if(isset($_GET['avboka'])){
                     } else {
                         echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
                     }
+	  echo "</table></div></div></div>";
                     ?>
 
 	  
