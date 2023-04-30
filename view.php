@@ -63,6 +63,27 @@ if(isset($_GET['avboka'])){
   <body onload="startTime()">
      
     <center><h2>Dina bokningar!</h2></center> 
+	<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Available Time Slots</h2>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          10:00 AM - 11:00 AM
+          <button class="btn btn-primary">Book Now</button>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          12:00 PM - 1:00 PM
+          <button class="btn btn-primary">Book Now</button>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          2:00 PM - 3:00 PM
+          <button class="btn btn-primary">Book Now</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
