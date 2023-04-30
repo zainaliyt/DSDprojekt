@@ -74,7 +74,7 @@ if(isset($_GET['avboka'])){
         if($result0->num_rows == 0) {
             echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>$result0</a>";
         } else {
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>$result0<button class='btn btn-primary'>Book Now</button></li>"; 
+            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>$result0['itemid']<button class='btn btn-primary'>Book Now</button></li>"; 
         }
 													   
 		    ?>
