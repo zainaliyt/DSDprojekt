@@ -8,7 +8,7 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 if (isset($_GET['passid'])) {
-       $passid = $_GET['delete'];
+       $passid = $_GET['passid'];
         $username = $_SESSION['username'];
         
         // Delete the record from the database
