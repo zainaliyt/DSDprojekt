@@ -8,27 +8,7 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 
-if(isset($_GET['avboka'])){
-    $pass = $_GET['pass'];
-    $dag = $_GET['dag'];
-    if($pass=='pass1'){
-        $avb='firstpass';
-        $s="status1";
-        $avp='P1';
-    }elseif($pass=='pass2'){
-        $avb='secondpass';
-        $avp='P2';
-        $s="status2";
-    }
-    elseif($pass=='pass3'){
-        $avb='thirdpass';
-        $avp='P3';
-        $s="status3";
-    }
-    
-     $mont = date('m',strtotime($dag));
-     $day = date('d',strtotime($dag));
-    $passid = $mont.$day.$avp;
+if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
     
      $sql = "UPDATE Time SET $pass='', kund$pass='' WHERE kund$pass='$user' AND dag='$dag' ";
      $query5= $conn->prepare("UPDATE account SET kvar=kvar+1 WHERE username = '$user'");
