@@ -8,20 +8,30 @@ if(!isset($_SESSION['user'])){
 $user =$_SESSION['user'];
 }
 
-if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
-    
-     $sql = "UPDATE Time SET $pass='', kund$pass='' WHERE kund$pass='$user' AND dag='$dag' ";
-     $query5= $conn->prepare("UPDATE account SET kvar=kvar+1 WHERE username = '$user'");
-     $query5->execute();
-     $querynew = $conn->prepare("UPDATE account SET $avb='' WHERE username = '$user' AND $avb='$passid'");
-     $querynew->execute();
-    $result = mysqli_query($conn,$sql);
-    if(!$result){
-        echo 'gick inte att avboka passet!';
-    }else{
-          header('location: view.php?avbokat');
+if (isset($_POST['confirm'])) {
+  $passid= $_COOKIE['confirm'];
+    // user confirmed the cancellation, delete the record from the database
+    $delete_query = "DELETE FROM hours WHERE itemid='$passid'";
+    $delete_result = mysqli_query($conn, $delete_query);
+
+    if (!$delete_result) {
+        // deletion failed
+        $msg = "Avbokningen misslyckades!";
+        $_SESSION['misslyckad'] = $msg;
+        header("Location: ?msg=".urlencode($msg));
+        exit();
     }
-    
+
+    // update the remaining count of bookings for the user
+    $username = $_SESSION['username'];
+    $newKvar = $_SESSION["kvar"] + 1;
+    $reg = "UPDATE accounts SET kvar='$newKvar' WHERE username='$username'";
+    $res1 = mysqli_query($conn, $reg);
+
+    $msg = "Avbokningen lyckades!";
+    $_SESSION['lyckad'] = $msg;
+    header("Location: ?msg=".urlencode($msg));
+    exit();
 }
 
 ?>
@@ -53,7 +63,7 @@ if(isset($_GET['avboka'])&&isset($_SESSION['kvar'])&&$_SESSION['kvar']!=""){
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
-            echo "<tr><td>".$date."</td><td>".$time."</td><td><button onclick='showModal();'>Avboka</button></td></tr>";
+            echo "<tr><td>".$date."</td><td>".$time."</td><td><button onclick='setCookie(\"passid\", \"".$date_time."\"); showModal();'>Avboka</button></td></tr>";
         }
         echo "</tbody></table></div></div></div>";
     } else {
