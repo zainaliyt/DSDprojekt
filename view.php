@@ -63,34 +63,8 @@ if(isset($_GET['avboka'])){
   <body onload="startTime()">
      
     <center><h2>Dina bokningar!</h2></center> 
-    <?php 
-                   
-                   $query2 = "SELECT * FROM hours where bookername = "$user"";
-$result = mysqli_query($conn,$query2);
-if (!$result) exit("The query did not succeded");
-else {
-    while ($row = mysqli_fetch_array($result)) {
-        
-    
-            ?> 
-          <script>
-              document.getElementById('maintitle').innerHTML="Dina bokningar:";
-              document.getElementById('mainc').style.display="none";
-          </script>
-        <?php 
-        
-         $pat1 = $row['itemid'];
-            echo  "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
-         echo "<br><th>Pass 3 > $pat1<td><a onclick='ask();' href='view.php?avboka&pass=pass3&dag=$dagen'>Avboka</a></td></th>";
-         
-        echo "</table></div></div></div>";
-          
-        if($row['itemid']==''){
-        echo "inga tider";
-    }
-        
-    }
-}?>
+
+	  
  <center><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='test2.php'"><i class="fa fa-home"></i></button><button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='home.php'">BOKA</button>
      <button class="btn btn-lg" style="margin:5px;" onclick="window.location.href='view.php'">VISA</button><button onclick="window.location.href='logout.php?logout'" class="btn btn-lg" style="margin:5px;" href="logout.php?logout">LOGGA UT</button></center>
   
