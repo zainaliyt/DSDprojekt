@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
             $date_time = $row["itemid"];
             $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
             $time = date("H:i", strtotime(substr($date_time, 9)));
-            echo "<tr><td>".$date."</td><td>".$time."</td><td><button onclick='setCookie(\"passid\", \"".$date_time."\"); showModal();'>Avboka</button></td></tr>";
+            echo "<tr><td>".$date."</td><td>".$time."</td><td><button onclick='showModal();'>Avboka</button></td></tr>";
         }
         echo "</tbody></table></div></div></div>";
     } else {
