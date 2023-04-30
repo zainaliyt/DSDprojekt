@@ -67,12 +67,13 @@ if(isset($_GET['avboka'])){
     $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
     if ($result->num_rows > 0) {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'><table class='table table-bordered'>";
-        while ($row = $result->fetch_assoc()) {
-		$date_time = $row["itemid"];
-		$date = date("j M Y", strtotime(substr($date_time, 0, 9)));
-		$time = substr($date_time, 9, 2) . ":" . substr($date_time, 11, 2);
-            echo "<tr><td>'.$date.'</td><td>'.$time.'</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
-        }
+       while ($row = $result->fetch_assoc()) {
+    $date_time = $row["itemid"];
+    $date = date("j M Y", strtotime(substr($date_time, 0, 9)));
+    $time = substr($date_time, 9, 2) . ":" . substr($date_time, 11, 2);
+    echo "<tr><td>".$date."</td><td>".$time."</td><td><a onclick='ask();' href='view.php?avboka&pass=pass1&dag=".$row['dag']."'>Avboka</a></td></tr>";
+}
+
         echo "</table></div></div></div>";
     } else {
         echo "<div class='container'><div class='card mt-5'><div class='card-body'>";
