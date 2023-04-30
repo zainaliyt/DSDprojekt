@@ -69,15 +69,17 @@ if(isset($_GET['avboka'])){
     <div class="col-md-6">
       <h2>Dina Bokningar!</h2>
       <ul class="list-group">
-	      <?php 
-		    $result0 = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
-        if($result0->num_rows == 0) {
-            echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>$result0</a>";
-        } else {
-            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>$result0['itemid']<button class='btn btn-primary'>Book Now</button></li>"; 
+	      <?php
+    $result = $conn->query("SELECT * FROM hours WHERE booker_name = '$user'");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<li class='list-group-item d-flex justify-content-between align-items-center'>" . $row['itemid'] . "<button class='btn btn-primary'>Book Now</button></li>";
         }
-													   
-		    ?>
+    } else {
+        echo "<a class='btn btn-danger disabled' style='font-size:12px;margin:2px;color:white;text-decoration: line-through;font-weight:bold;'>No records found</a>";
+    }
+?>
+
         
       </ul>
     </div>
