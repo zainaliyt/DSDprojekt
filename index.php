@@ -2,6 +2,7 @@
 session_start();
 include 'db.php';
 $msg ="";
+
 if(!isset($_SESSION['user'])){
     header ('location:contact.php?du kan inte besöka sidan');
 }else{
